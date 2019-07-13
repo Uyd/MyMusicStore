@@ -1,0 +1,136 @@
+﻿@using MusicStore.ViewModels
+@using MusicStoreEntity
+@using MusicStoreEntity.UserAndRole
+@* 看登录状态 *@
+@{
+    //判断用户是否登录
+
+    var loginUserModel = Session["LoginUserSessionModel"] as LoginUserSessionModel;
+    ApplicationUser user = null;
+    //查询购物车，收藏
+    var carts = new List<Cart>();
+    if (loginUserModel != null)
+    {
+        if (loginUserModel.User != null)
+        {
+            user = loginUserModel.User;
+        }
+
+        //查询购物车，收藏
+        carts = new EntityDbContext().Carts.Where(x => x.Person.ID == user.Person.ID).ToList();
+    }
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charsert="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title - 音乐商店</title>
+    @*绑定样式库*@
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/UEditor/css")
+    @Styles.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/JqueryUI")
+
+    @*绑定脚本库*@
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/JqueryUI")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/UEditor")
+</head>
+<body>
+    <div id="header">
+        @*Logo和菜单*@
+        <h1><span><a href="@Url.Action("Index", "Home")">ASP.NET MVC 音乐商店</a></span></h1>
+        <div class="head_nav">
+            <ul>
+                <li class="active"><a href="@Url.Action("Index", "Home")">首页</a></li>
+                <li><a href="@Url.Action("index", "Store")">专辑</a></li>
+                @if (user == null)
+            {
+                    <li><a href="@Url.Action("Login", "Account")">登录</a></li>
+                }
+                else
+                {
+                    <li class="dropdown">
+                        <img src="@user.Person.Avada" alt="头像" id="Bighead"/>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">
+                            @user.Person.Name<span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="@Url.Action("index", "ShoppingCart")">购物车(@carts.Count)</a></li>
+                            <li><a href="@Url.Action("Index", "Order")">我的订单</a></li>
+                            <li><a href="@Url.Action("Index", "My")">个人信息</a></li>
+                            <li><a href="@Url.Action("ChangePassWord", "Account")">修改密码</a></li>
+                            <li><a href="@Url.Action("loginout", "account")">注销</a></li>
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" id="row1">
+            <div class="col-md-3">
+                @*左侧导航*@
+                @Html.Partial("_GetGenreMenu",
+                new MusicStoreEntity.EntityDbContext().Genres.ToList())
+            </div>
+            <div class="col-md-8">
+                @*操作区*@
+                @RenderBody()
+            </div>
+        </div>
+        <div class="row">
+            @*尾栏*@
+            <div class="footer">
+                @Html.Partial("_FooterLayout")
+            </div>
+        </div>
+    </div>
+    @*继承此布局页的页面执行脚本的位置*@
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+
+
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=i04VGCt9mGHVlrivi6miXfjwAhkKcm60"></script>
+@*109.42240181,24.32905335*@
+@*// 百度地图API功能*@
+<script>
+    var geolocation = new BMap.Geolocation();
+
+    geolocation.getCurrentPosition(function (r) {
+        if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+
+            //显示百度地图查询结果 区域
+            if (r.address.district != "")
+                document.getElementById("district").innerHTML = r.address.district;
+
+            //显示百度地图查询结果 城市
+            if (r.address.city != "") {
+                document.getElementById("city").innerHTML = r.address.city;
+            } else {
+                document.getElementById("city").innerHTML = "无法定位";
+            }
+        }
+    },
+        { enableHighAccuracy: true });
+
+
+    //自己-播放器
+    var icon = document.querySelector("#payicon");
+    var paycont = document.querySelector("#PayMusicBox>span").innerHTML;
+    var player = document.querySelector("audio");
+
+    if (paycont != "播放音乐") {
+        icon.style.animation = " rotate 5s linear infinite";
+        player.url = "";
+    } else {
+        icon.style.animation = "";
+    }
+</script>

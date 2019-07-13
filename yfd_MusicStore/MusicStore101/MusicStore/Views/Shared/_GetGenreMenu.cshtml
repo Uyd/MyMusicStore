@@ -1,0 +1,22 @@
+﻿@model IEnumerable<MusicStoreEntity.Genre>
+    
+<ul class="categories">
+    @foreach (var item in Model)
+    {
+        <li>
+            <i class="glyphicon glyphicon-music"></i>
+            @Html.ActionLink(item.Name,"browser", "store", new {id = item.ID},null)
+        </li>
+    }
+    @*定位*@
+    <li id="Location">当前定位:<i class="glyphicon glyphicon glyphicon-send"></i><span id="city"> 定位中...<span id="district"></span></span></li>
+    @* 播放列表 *@
+    <li id="PayMusic">
+        <div id="PayMusicBox">
+            <i id="payicon" class="glyphicon glyphicon-cd"></i><span>播放音乐</span><br/>
+            <audio src="">
+                您的浏览器不支持 audio 标签。
+            </audio>
+        </div>
+    </li>
+    </ul>

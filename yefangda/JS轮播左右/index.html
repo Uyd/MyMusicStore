@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>左右轮播</title>
+    <link rel="stylesheet" type="text/css" href="Css.css" />
+
+</head>
+
+<body>
+    <div id="box" class="all">
+        <div id="ad">
+            <ul id="ad_img">
+                <li><a href="#"><img src="images/1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/3.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/4.jpg" alt=""></a></li>
+                <li><a href="#"><img src="images/5.jpg" alt=""></a></li>
+            </ul>
+        </div>
+        <div id="arrow">
+            <span id="left">
+                <</span> <span id="right">>
+            </span>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    //读取控件
+    function $(id) {
+        return document.getElementById(id);
+    }
+    var adimg = document.getElementById('ad_img');
+    var left_btn = document.getElementById('left');
+    var right_btn = document.getElementById('right');
+
+    $('box').onmouseover = function () {
+        $("arrow").style.display = "block";
+    }
+    $('box').onmouseout = function () {
+        $("arrow").style.display = "none";
+    }
+    //位置变量
+    var target = 0; //目标位置
+    var leader = 0; //偏移结果
+    var num = 520;
+
+    left_btn.onclick = function () {
+        target += num;
+    }
+    right_btn.onclick = function () {
+        target -= num;
+    }
+    setInterval(function () {
+        if (target >= 0) {
+            target = 0;
+        } else if (target <= -2080) {
+            target = -2080;
+        }
+        leader = leader + (target - leader) / 10;
+        adimg.style.left = leader + 'px';
+    }, 20)
+</script>

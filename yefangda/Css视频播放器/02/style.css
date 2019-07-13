@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style:none;
+}
+
+/* header */
+
+/* header end */
+
+/* 播放器 */
+
+/* player end */
+
+/* 视频列表 */
+.video-list{
+    width:1200px;
+    margin: 0 auto;
+}
+.video-list p{
+    text-align:left;
+    font-size:14px;
+    color:#333;
+    padding:20px 0;
+}
+.video-list ul{
+    width:1200px;
+}
+.video-list li{
+    width:252px;
+    height:150px;
+    margin-right:24px;
+    float:left;
+    background: url(../images/pg2.jpg) no-repeat center center;
+    border:3px solid white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    opacity: 0.6;
+}
+.video-list  li:nth-child(2){
+background: url(../images/pg1.jpg) no-repeat center center;
+border: 3px solid #666;
+opacity: 1;
+}
+/* cantainer end */

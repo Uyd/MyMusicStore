@@ -1,0 +1,63 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing:border-box;
+}
+img{
+    /* 清除照片的3px缝隙 */
+    display: block;
+}
+.slider {
+    width:490px;
+    height: 170px;
+    margin: 100px auto;
+    border:1px solid #ccc;
+    padding:5px;
+    position: relative;
+    background:#eee;
+    overflow: hidden;
+}
+
+.ad {
+    /* margin: auto; */
+    width: 100%;
+    height:100%;
+    position: relative;
+    /* overflow: hidden; */
+}
+
+.ad ul {
+    width: 1000%;
+    position: absolute;
+    top:0;
+    left:0;
+}
+
+.ad ul li {
+    float: left;
+}
+
+/* 编号样式 */
+.slider ol {
+    position: absolute;
+    left:50%;
+    top: 150px;
+    margin-left:-85px;
+    /* cursor: pointer; */
+}
+
+.slider ol li {
+    width: 20px;
+    height: 20px;
+    background-color:white;
+    margin: 0 8px;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+    float: left;
+}
+
+.slider ol li.current{
+    background-color: gold;
+}

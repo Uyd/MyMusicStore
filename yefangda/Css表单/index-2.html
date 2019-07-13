@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>用户注册</title>
+    <link href="in2.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="container">
+        <form action="#" method="GET" autocomplete="off">
+            <h2>学员信息登记表</h2>
+            <p><span>用户登录名:</span><input type="text" placeholder="myemail@163.com" /><mark>(不能修改，只能查看)</mark></p>
+            <p><span>真实姓名:</span><input type="text" required="required" placeholder="例如：王明" /><mark>(必须填写，只能输入汉字)</mark></p>
+            <p><span>真实年龄:</span><input type="text" required="required" value="24" /><mark>(必须填写)</mark></p>
+            <p><span>出生日期:</span><input type="date" required="required" /><mark>(必须填写)</mark></p>
+            <p><span>电子邮箱:</span><input type="email" required="required" placeholder="123456@126.com" /><mark>(必须填写)</mark></p>
+            <p><span>身份证号:</span><input type="text" required="required" /><mark>(必须填写，能够以数字、字母x结尾的短身份证号)</mark></p>
+            <p><span>手机号码:</span><input type="tel" required="required" /><mark>(必须填写)</mark></p>
+            <p><span>个人主页:</span><input type="url" list="url_list" placeholder="http://www.itcast.cn" /><mark>(选择网址)</mark></p>
+            <datalist id="url_list">
+                <option>http://www.baidu.com</option>
+                <option>http://www.iaqy.com</option>
+                <option>http://www.douyu.com</option>
+                <option>http://www.lzzy.com</option>
+            </datalist>
+            <p class="luack"><span>幸运颜色:</span><input type="color" value="#fdfd12" /><mark>(选择你喜欢的颜色)</mark></p>
+            <p class="btn"><input type="submit" value="提交" /> <input type="reset" value="重置" /></p>
+        </form>
+    </div>
+</body>
+
+</html>

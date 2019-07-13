@@ -1,0 +1,602 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+}
+#Bighead {
+    display: inline-block;
+    height: 25px;
+    border-radius: 50%;
+}
+/*修改用户头像*/
+#imgAvarda {
+    display: block;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.container #row1 {
+    min-height: 650px;
+}
+
+#botton a {
+    font-family: "幼圆";
+    width: 70px;
+    line-height: 20px;
+    padding: 5px;
+    display: block;
+    background: #f4a460;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px #708090;
+    color: #fffef8;
+    text-decoration: none;
+}
+
+body {
+    background-color:#c6e6e8;/*#c6dfc8;*/
+    background-image: url(../../Content/images/texture.png);
+}
+/*右边向左偏移25px*/
+.box {
+    margin-left: 25px;
+}
+
+#header {
+    height: 100px;
+    margin: auto;
+    width: 85%;
+    font-weight: bold;
+    border-bottom: 1px dashed black;
+}
+
+    #header > h1 {
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+        background-image: url(../../Content/images/logo.png);
+        background-repeat: no-repeat;
+        float: left;
+    }
+
+        #header > h1 > span {
+            display: block;
+            background: none;
+            margin-top: 45px;
+        }
+
+        #header > h1 a {
+            text-decoration: none;
+            color: black;
+        }
+
+.head_nav {
+    margin-top: 35px;
+    float: right;
+}
+
+    .head_nav > ul {
+        font-size: 16px;
+        color: #fff;
+        list-style: none;
+    }
+
+        .head_nav > ul > li {
+            float: left;
+            margin: 10px;
+        }
+
+        .head_nav > ul a {
+            color: black;
+            text-decoration: none;
+        }
+
+            .head_nav > ul a:hover {
+                color: yellow;
+            }
+/*下拉菜单*/
+.dropdown-menu {
+    min-width: 80px;
+    overflow: hidden;
+}
+
+.dropdown ul {
+    font-family: "宋体";
+    list-style: none;
+    background: #fffef8;
+    position: absolute;
+    padding: 2px 0;
+    width: 80px;
+    overflow: hidden;
+}
+
+.dropdown > ul li {
+    display: block;
+    width: 80px;
+}
+
+    .dropdown > ul li a {
+        display: block;
+        padding: 5px;
+        color: #708090;
+        font-size: 12px;
+        width: 80px;
+        height: 20px;
+        line-height: 10px;
+        overflow: hidden;
+    }
+
+        .dropdown > ul li a:hover {
+            color: #fff;
+            background: #3170a7;
+        }
+/* 内容 */
+ul.categories {
+    font-family: "宋体";
+    padding-left: 30px;
+    padding-bottom: 10px;
+    width: 190px;
+    list-style: none;
+    margin: 15px 0 20px 25px;
+    border-right: 1px dashed black;
+    font-size: 18px;
+}
+
+.categories #Location > span {
+    margin-left: 5px;
+    color: blue;
+    cursor: cell;
+}
+
+.categories li {
+    padding: 3px 0;
+}
+
+.categories a {
+    padding: 2px;
+    color: #fff;
+    text-decoration: none;
+    transition: all .2s;
+    -webkit-transition: all .2s;
+}
+
+    .categories a:hover {
+        font-weight: bold;
+        background: lightseagreen;
+    }
+
+.categories #Location {
+    margin-top: 15px;
+    font-size: 14px;
+    color: black;
+}
+/*音乐播放*/
+#PayMusicBox {
+    margin-top: 10px;
+    line-height: 20px;
+}
+
+    #PayMusicBox p {
+        width: 120px;
+        height: 20px;
+        background: #3170a7;
+        display: block;
+    }
+
+#payicon {
+    /*transform-origin: 50%;*/
+}
+/*动画*/
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+/* 右边 */
+
+.bg {
+    margin-top: 20px;
+    width: 100%;
+    height: 300px;
+    background: url(../../Content/images/home-showcase.png)no-repeat center center;
+    /*object-fit: cover;*/
+}
+
+/*右下边*/
+h3 {
+    margin-left: 20px;
+    font-size: 20px;
+    font-style: italic;
+    color: #fff;
+}
+
+    h3 em {
+        color: lemonchiffon;
+    }
+
+.album-list {
+    margin: auto;
+    width: 100%;
+    background: #fffff0;
+}
+
+    .album-list > li {
+        margin: 10px;
+        margin-left: 35px;
+        float: left;
+        width: 100px;
+        height: 120px;
+        text-align: center;
+        overflow: hidden;
+        color: #708090;
+        font-size: 12px;
+        font-family: "宋体";
+    }
+
+        .album-list > li span {
+            display: block;
+            margin-top: 8px;
+        }
+
+        .album-list > li img {
+            display: block;
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
+        }
+/*所有音乐的分类页面样式*/
+.genre-all-p {
+    margin-left: 35px;
+    color: #708090;
+}
+
+.genre-all-ul {
+    margin-left: 20px;
+    list-style: none;
+}
+
+    .genre-all-ul li {
+        padding: 10px;
+        margin: 10px;
+        float: left;
+        overflow: hidden;
+        color: #708090;
+        font-size: 12px;
+        font-family: "宋体";
+        font-weight: bold;
+        background: #fffef8;
+        border-radius: 10px;
+        line-height: 25px;
+    }
+
+    .genre-all-ul a {
+        font-size: 16px;
+        font-weight: bold;
+        color: blue;
+        text-decoration: none;
+    }
+
+        .genre-all-ul a:hover {
+            color: red;
+        }
+
+    .genre-all-ul > li > span > a {
+        font-size: 12px;
+        font-family: "宋体";
+        font-weight: bold;
+        color: #8fb2c9;
+    }
+
+        .genre-all-ul > li > span > a:hover {
+            color: #f4a460;
+        }
+
+
+
+
+/*歌曲详情*/
+
+.album-details{
+    min-height:190px;
+}
+.detail-img {
+    width: 100px;
+    height: 75px;
+    position: relative;
+}
+
+    .detail-img > img {
+        display: block;
+        width: 100px;
+        height: 75px;
+        object-fit: cover;
+    }
+
+#detail-bg {
+    display: none;
+    width: 100px;
+    height: 75px;
+    background: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    font-size: 35px;
+    line-height: 75px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #fff;
+}
+
+.detail-img:hover #detail-bg {
+    display: block;
+    cursor: pointer;
+}
+/*试听*/
+#album-banner {
+    width: 100px;
+    height: 75px;
+}
+
+.cd {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 25%;
+    left: 10%;
+    border-radius: 50%;
+    border: 5px solid white;
+    z-index: 2;
+    box-shadow: 5px 5px 15px black;
+}
+
+.cd-center {
+    width: 100px;
+    height: 100px;
+    /*background-image: black;*/
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    border: 5px solid white;
+    background-image: url(/content/images/yinfu.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+    z-index: 3;
+    background-color: black;
+}
+
+#box-video audio{
+    border-radius: 30px;
+    width: 200px;
+    height: 30px;
+    position: absolute;
+    left: -55px;
+    bottom: -50px;
+}
+
+#box-video {
+    position: absolute;
+    top: 10px;
+    left: 400px;
+}
+/*评论-------------------*/
+/*输入*/
+#comment_div{
+    width: 400px; 
+    height: 180px;
+    position:relative;
+}
+/*头像*/
+#ReplyImg1 {
+    display: inline-block;
+    height: 25px;
+    border-radius: 50%;
+    position:absolute;
+    right:50px;
+    bottom:10px;
+    z-index:999;
+}
+
+#submit{
+    position:absolute;
+    right:10px;
+    bottom:10px;
+    z-index:999;
+}
+
+/*回复*/
+.reply{
+    position:relative;
+    width:350px;
+}
+#submitReply{
+    position:absolute;
+    right:10px;
+    bottom:10px;
+    z-index:9999;
+}
+/*end输入*/
+/*所有的评论*/
+#albumComment{
+    /*position:relative;
+    padding-left:50px;
+    padding-top:5px;
+    border:1px dashed #fffff0;*/
+}
+#albumComment em{
+    color:#77788e;
+    font-size:12px;
+}
+#albumComment_content{
+    position:relative;
+    padding-left:50px;
+    padding-top:5px;
+    border:1px dashed #fffff0;
+    margin-bottom:5px;
+}
+#albumComment_content i{
+    cursor:pointer;
+    color:#3170a7;
+}
+#ReplyImg{
+    display: inline-block;
+    height: 40px;
+}
+
+
+/*登录界面*/
+fieldset > div span {
+    color: red;
+}
+/*购物车界面*/
+.box table {
+    margin: 20px 0;
+    width: 750px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+#table1 td:first-child {
+    width: 35%;
+}
+
+table > tr > td, th {
+    padding: 3px 5px;
+    width: 10%;
+}
+
+table tr {
+    height: 25px;
+    background: rgba(255,255,255,0.5);
+    border-bottom: 1px solid #708090;
+}
+
+    table tr:hover {
+        background: rgba(255,255,255,0.7);
+    }
+
+table th {
+    height: 30px;
+    text-align: center;
+    background: #fffff0;
+    border-bottom: 1px solid black;
+}
+
+#table1 tr:last-child {
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
+/*个人信息页面*/
+
+.box #myinfo-a {
+    font-size: 18px;
+    margin-top: 10px;
+    padding: 5px;
+    background: #fffef8;
+    color: #708090;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+    .box #myinfo-a:hover {
+        background: #708090;
+        color: #fffef8;
+    }
+/*我的订单页面*/
+#table2 td {
+    padding: 3px 5px;
+    text-align: left;
+    color: #778899;
+}
+
+#table2 th {
+    text-align: left;
+}
+
+#table2 tr:hover {
+    background: rgba(255,255,255,0.7);
+}
+
+#table2 p {
+    margin-top: 5px;
+    line-height: 12px;
+}
+
+#table2 tr:last-child {
+    border-bottom: 1px solid black;
+}
+/*订单+ -增加减少*/
+td span {
+    text-align: center;
+    display: inline-block;
+    width: 20px;
+    margin: 0 5px;
+}
+
+    td span:hover {
+        cursor: pointer;
+        background: #f4a460;
+    }
+/* 底部 */
+.footer {
+    width: 70%;
+    /*height: 60px;*/
+    border-top: 1px dashed black;
+    border-bottom: 1px dashed black;
+    margin: 20px auto;
+    text-align: center;
+    line-height: 60px;
+}
+
+    .footer img {
+        display: inline-block;
+        height: 30px;
+    }
+
+@media(max-width:700px) {
+    .bg {
+        display: none;
+    }
+
+    ul.categories {
+        border: none;
+    }
+
+    h3 {
+        margin-left: 10px;
+    }
+}
+
+@media(max-width:500px) {
+    body {
+        min-width: 300px;
+    }
+
+    .head_nav {
+        margin-top: 5px;
+    }
+
+        .head_nav > ul > li {
+            float: none;
+            margin: 3px;
+        }
+    /* .head_nav li{
+        margin:3px;
+    } */
+}

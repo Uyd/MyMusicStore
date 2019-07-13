@@ -1,0 +1,389 @@
+﻿@using MusicStore.ViewModels
+@using MusicStoreEntity
+@using MusicStoreEntity.UserAndRole
+@model MusicStoreEntity.Album
+@{
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+    ViewBag.Title = "专辑明细";
+
+    //当前用户
+    var loginUserModel = Session["LoginUserSessionModel"] as LoginUserSessionModel;
+    ApplicationUser user = null;
+
+    if (loginUserModel != null)
+    {
+        if (loginUserModel.User != null)
+        {
+            user = loginUserModel.User;
+        }
+    }
+
+}
+<div class="box">
+    <h2>@Model.Title</h2>
+    <div class="detail-img">
+        <img alt="@Model.Title" src="@Model.AlbumArtUrl" />
+        <div id="detail-bg"><i class="glyphicon glyphicon-play-circle"></i></div>
+    </div>
+    <div class="album-details">
+        <p>
+            <em>发布时间:</em>
+            @Model.PublisherDate.ToString("yyyy年MM月dd日")
+        </p>
+        <p>
+            <em>分类:</em>
+            @Model.Genre.Name
+        </p>
+        <p>
+            <em>歌手:</em>
+            @Model.Artist.Name
+        </p>
+        <p>
+            <em>价格:</em>
+            ￥@String.Format("{0:f}", Model.Price)
+        </p>
+        <p id="msg"></p>
+        <input type="button" id="addcart" value="添加购物车" />
+    </div>
+    @*试听*@
+    <div id="box-video">
+        <div class="cd" style="background: url('/Content/images/cd_img.jpg') no-repeat;">
+            <div class="cd-center">
+                <audio src="@Model.MusicUrl" controls loop></audio>
+            </div>
+        </div>
+    </div>
+
+    <!--评论 百度ueditor的呈现-->
+    <hr />
+    @*显示评论*@
+    <div id="divCmt">
+        @Html.Raw(ViewBag.Cmt)
+    </div>
+
+
+
+
+    <div id="albumComment">
+        <div class="form-group" id="divEdt">
+            <textarea id="editor" name="editor"></textarea>
+        </div>
+        <input type="hidden" id="pReplyID" />
+        <button id="btnCmt" type="button" class="btn btn-success">评论</button>
+    </div>
+
+    @*利用boostrap中的modal显示子回复*@
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" id="Div-SonCmts">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">
+                        ×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        原回复
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    子回复。。。<a href='#' style="margin-left:20px;"><i class='glyphicon glyphicon-thumbs-up'></i></a>(0)
+                    <a href='#' style="margin-left:5px;"><i class='glyphicon glyphicon-thumbs-down'></i></a>(0)<br />
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+</div>
+
+@*//局部提交方法*@
+<script>
+
+    //点击评论中的回复按钮触发的方法
+    function GetQuote(id,divid) {
+        //保存该评论的id
+        $('#pReplyID').val(id);
+        //alert($('#pReplyID').val());
+
+        //取回复的内容
+        var divName = "Content-" + divid;
+        var content = "<p></p>" + $("#" + divName).html();
+        //alert(content);
+
+        //把内容赋值给ueditor
+        var ue = UE.getEditor("editor");
+        ue.ready(function () {
+            ue.setContent(content);
+        });
+        //如果model打开则关了
+        $('#myModal').modal('hide');
+    }
+
+    //回复的数量，显示模块
+    function ShowCmt(id) {
+        //ajax查询子回复
+        $.ajax({
+            type: "post",
+            asyn: true,
+            url: '@Url.Action("showCmts","Store")',
+            data: {
+                "pid": id
+            },
+            dataType: 'json',
+            success: function (data) {
+                $('#Div-SonCmts').html(data);
+                $('#myModal').modal('toggle');
+            }
+        });
+    }
+    //点赞
+    function Like(id) {
+        $.ajax({
+            type: "post",
+            asyn: true,
+            url: '@Url.Action("Like","Store")',
+            data: {
+                "pid": id
+            },
+            dataType: 'json',
+            success: function (data) {
+                //登录
+                if (data.Status == "noLogin") {
+                    location.href = "@Url.Action("login", "Account",
+                                         new {returnUrl = Url.Action("Detail", "Store", new {id = Model.ID})})";
+                }
+
+                else if (data.Status != "false")
+                    if (data.Status == "Parent") {
+                        $('#divCmt').html(data.Html);//detail
+                    } else if (data.Status == 'Son') {
+                        $("#Div-SonCmts").html(data.Html);//modal
+                    }
+            }
+        });
+    }
+    //踩
+    function Hate(id) {
+        $.ajax({
+            type: "post",
+            asyn: true,
+            url: '@Url.Action("Hate","Store")',
+            data: {
+                "pid": id
+            },
+            dataType: 'json',
+            success: function (data) {
+                //登录
+                if (data.Status == "noLogin") {
+                    location.href = "@Url.Action("login", "Account",
+                                         new {returnUrl = Url.Action("Detail", "Store", new {id = Model.ID})})";
+                }
+
+                else if (data.Status != "false")
+                    if (data.Status == "Parent") {
+                        $('#divCmt').html(data.Html);//主视图
+                    } else if (data.Status == 'Son') {
+                        $("#Div-SonCmts").html(data.Html);//子回复，模态框
+                    }
+            }
+        });
+    }
+
+    //百度编辑器调用
+    var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: "/Content/ueditor/",//配置编辑器的路径
+        iframeCssUrl: "/Content/ueditor/themes/iframe.css",//自定义样式路径
+        initialContent: "五星好评",//初始内容
+        autoHeightEnabled: true,//高度是否自适应
+        minFrameHeight: 500,//编辑器最小的高度
+        autoFloatEnabled: false,
+        enableContextMenu: false,
+        elementPathEnabled: false,//元素路径
+        wordCount: false,
+        fullscreen: false
+    });
+    editor.render('editor');
+
+    //提交回复
+    $('#btnCmt').click(function () {
+        //获得编辑器中的内容
+        UE.getEditor('editor');
+        var content = UE.getEditor('editor').getContent();
+        var pid = $('#pReplyID').val();
+
+        //ajax提交
+        $.ajax({
+            type: "post",
+            asyn: true,
+            url: '@Url.Action("AddCmt","Store")',
+            data: {
+                "id": "@Model.ID",
+                "cmt": content,
+                "reply": pid
+            },
+            dataType: 'json',
+            success: function (data) {
+                //如果没有登录，跳转到登录页面
+                if (data == "nologin") {
+                    location.href = "@Url.Action("login", "Account",
+                                         new {returnUrl = Url.Action("Detail", "Store", new {id = Model.ID})})";
+                }
+                else if (data != "") {
+                    //局部刷新
+                    $('#divCmt').html(data);
+                    UE.getEditor('editor').setContent('');
+                }
+            }
+        });
+    });
+
+
+
+
+
+    //添加购物车
+    $("#addcart").click(function () {
+        //异步
+        $("#msg").html("<img src='../../content/images/loading4.gif'/>添加到购物车，请稍后...");
+        $.ajax({
+            type: 'post',
+            async: true,
+            url: '../../ShoppingCart/AddCart',
+            data: { id: "@Model.ID" },
+            dataType: 'json',
+            success: function (data) {
+                //如果没有登录，跳转到登录页面
+                if (data == "nologin") {
+                    location.href = "@Url.Action("login", "Account",
+                                         new {returnUrl = Url.Action("Detail", "Store", new {id = Model.ID})})";
+                } else {
+                    //添加到购物车成功，把动画取消
+                    $("#msg").html(data);
+                    //2s后重新刷新此区域
+                    setInterval(function () {
+                        location.reload();
+                    },
+                        2000);
+
+                }
+            }
+        });
+    });
+
+</script>
+
+<!--ueditor富文本编辑器 实例化编辑器 -->
+<script type="text/javascript">
+
+    //工具栏配置参数
+    var ue = UE.getEditor('container', {
+        toolbars: [
+            ['fullscreen', 'source', '|', 'indent', 'simpleupload', 'snapscreen', 'spechars', 'emotion']
+        ],
+        autoHeightEnabled: false,
+        autoFloatEnabled: false,
+        enableContextMenu: false,
+        elementPathEnabled: false,//元素路径
+        wordCount: false,
+        fullscreen: false
+        //enableAutoSave: false
+    });
+
+    //封装成方法，用于实例化
+    function ueditorReply(id) {
+
+        var reply = UE.getEditor(id, {
+            toolbars: [
+                ['spechars', 'emotion']
+            ],
+            autoHeightEnabled: false,
+            autoFloatEnabled: false,
+            enableContextMenu: false,
+            elementPathEnabled: false,//元素路径
+            wordCount: false,
+            fullscreen: false
+            //enableAutoSave: false
+        });
+        return reply;
+    }
+
+    //异步提交评论文字
+    $("#submit").click(function () {
+        var txt = ue.getPlainTxt();
+        alert(txt);
+        //ue.getContentTxt();
+        $.ajax({
+            type: 'post',
+            async: true,
+            url: '../../Store/Comment',
+            data: { str: txt, id: "@Model.ID" },
+            dataType: 'json',
+            success: function (data) {
+                //是否登录
+                if (data != "nologin") {
+                    if (data != "")
+                        $("#albumComment").html(data);
+                }
+                else {
+                    alert("请先登录!");
+                    location.href = "@Url.Action("login", "Account",
+                                         new {returnUrl = Url.Action("Detail", "Store", new {id = Model.ID})})";
+                }
+            }
+        });
+
+        //清空
+        ue.setContent('');
+    });
+</script>
+
+
+<!--点击回复处理-->
+<script>
+    var re;
+    var pid;
+    function ParentReply(id) {
+        var rep = document.getElementById(id);
+        var all = document.querySelectorAll('.reply');
+
+        if (rep.style.display == "none")
+            rep.style.display = "block";
+        else
+            rep.style.display = "none";
+
+        for (var i = 0; i < all.length; i++) {
+            if (all[i] != rep)
+                all[i].style.display = "none";
+        }
+        //实例化富文本
+        re = ueditorReply(id);
+        pid = id;
+    }
+    //异步提交回复内容
+    $(".submitReply").click(function () {
+        var txt = re.getPlainTxt();
+        alert(txt);
+        $.ajax({
+            type: 'post',
+            async: true,
+            url: '../../Store/ParentReply',
+            data: { str: txt, id: pid, aid: "@Model.ID" },
+            dataType: 'json',
+            success: function (data) {
+                //是否登录
+                if (data != "nologin") {
+                    if (data != "")
+                        $("#albumComment").html(data);
+                }
+                else {
+                    alert("请先登录!");
+                    location.href = "@Url.Action("login", "Account",
+                                         new {returnUrl = Url.Action("Detail", "Store", new {id = Model.ID})})";
+                }
+            }
+        });
+        //清空
+        re.setContent('');
+    });
+</script>

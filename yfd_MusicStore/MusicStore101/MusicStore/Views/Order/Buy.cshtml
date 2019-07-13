@@ -1,0 +1,73 @@
+﻿@model MusicStoreEntity.Order
+@{
+    ViewBag.Title = "确认下单";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+
+<h3><i>确认下单</i></h3>
+<div class="box">
+    @using (Html.BeginForm("Buy", "Order", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset>
+            <legend>收货信息</legend>
+            @Html.EditorForModel()
+            <legend style="margin-top: 10px;">明细</legend>
+            <table id="table1">
+                <tr>
+                    <th>专辑名称</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>操作</th>
+                </tr>
+                <tbody id="tbCart">
+                    @foreach (var item in Model.OrderDetails)
+                {
+                        <tr>
+                            <td>@Html.ActionLink(item.Album.Title, "detail", "Store", new { id = item.Album.ID }, null)</td>
+                            <td>
+                                @item.Album.Price.ToString("C")
+                            </td>
+                            <td>
+                                @item.Count
+                            </td>
+                            <td>
+                                <a href="#" onclick="RemoveDetail('@item.ID');">
+                                    <i class="glyphicon glyphicon-remove">我不喜欢这个</i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>总价</td>
+                        <td>@Model.TotalPrice.ToString("C")</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+                <button type="submit" class="btn btn-default">
+                    <i class="glyphicon glyphicon-shopping-cart">下单购买</i>
+                </button>
+            </p>
+        </fieldset>
+    }
+</div>
+
+<script>
+    function RemoveDetail(id) {
+        //移除订单明细
+        $.ajax({
+            type: "post",
+            async: true,
+            url: '../../Order/RemoveDetail',
+            data: { id: id },
+            dataType: 'json',
+            success: function (data) {
+                //视图中进行局部页面的刷新
+                $("#tbCart").html(data);
+            }
+        });
+    }
+</script>

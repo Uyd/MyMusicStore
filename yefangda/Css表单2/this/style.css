@@ -1,0 +1,36 @@
+*{
+    margin:0;padding:0;
+    font-size:12px;
+}
+.bg{
+    width:949px;
+    height:687px;
+    background-image: url(images/sy.png);
+    background-repeat:no-repeat;
+    margin:auto;
+    text-align:center;
+
+    position: relative;
+}
+form{
+    position:absolute;
+    top:150px;
+    left:100px;
+}
+p{
+    line-height: 40px;
+}
+p input{
+    width:150px;
+    height:25px;
+    border-radius: 5px;
+}
+h2{
+    font-size: 18px;
+    text-align: center;
+}
+p span{
+    width:80px;
+    display: inline-block;
+    text-align: right;
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>电商网站下拉菜单</title>
+    <link rel="stylesheet" type="text/css" href="Css.css" />
+    <script type="text/javascript" src="Script.js"></script>
+</head>
+
+<body>
+    <!-- 用户信息栏 -->
+    <div id="top">
+        <div class="top_Nav">
+            <ul>
+                <li><a href="#">亲,请登录</a></li>
+                <li><a href="#">免费注册</a></li>
+            </ul>
+            <ul class="ul_right">
+                <li class="ul_drop" onmouseout="change('div_drop','none')" onmouseover="change('div_drop','block')"><a
+                        href="#">我的商城</a>
+                    <div id="div_drop">
+                        <a href="#">已买到的宝贝</a>
+                        <a href="#">我的足迹</a>
+                        <a href="#">我的上新</a>
+                        <a href="#">爱逛街</a>
+                        <a href="#">商城达人</a>
+                        <a href="#">新欢</a>
+                    </div>
+                </li>
+                <li class="line">|</li>
+                <li><a href="#">购物车</a></li>
+                <li class="line">|</li>
+                <li><a href="#">收藏夹</a></li>
+                <li class="line">|</li>
+                <li><a href="#">卖家中心</a></li>
+                <li class="line">|</li>
+                <li><a href="#">联系客服</a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- 商城首部 -->
+    <div id="header">
+        <a href="#" class="logo"><img src="images/jd.gif" alt=""></a>
+        <div id="search">
+            <input type="text" class="txt_search" />
+            <input type="button"  value="搜索" class="txt_button" />
+            <p>热门搜索:网页培训 人工智能 大数据 物联网</p>
+        </div>
+        <div id="info">
+            <input type="button" value="会员中心" />
+            <input type="button" value="去购物车结算" />
+        </div>
+    </div>
+</body>
+
+</html>

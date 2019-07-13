@@ -1,0 +1,62 @@
+﻿@model MusicStore.ViewModels.RegisterViewModel
+
+@{
+    ViewBag.Title = "新用户注册";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div class="box">
+    <h2>新用户注册</h2>
+    <br/>
+    @using (Html.BeginForm("Register","Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            <fieldset>
+                <legend>用户信息</legend>
+                <div>
+                    @*显示display特性*@
+                    @Html.LabelFor(x => x.UserName)
+                    <br/>
+                    @*控件*@
+                    @Html.TextBoxFor(x => x.UserName, new {placeholder="登录名",autocomplete="off"})
+                    @Html.ValidationMessageFor(x => x.UserName)
+                </div>
+                <div>
+                    @*显示display特性*@
+                    @Html.LabelFor(x => x.FullName)
+                    <br/>
+                    @*控件*@
+                    @Html.TextBoxFor(x => x.FullName, new {placeholder="姓名", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.FullName)
+                </div>
+                <div>
+                    @*显示display特性*@
+                    @Html.LabelFor(x => x.Email)
+                    <br />
+                    @Html.TextBoxFor(x => x.Email, new { placeholder = "邮箱", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.Email)
+                    <p></p>
+                </div>
+                <div>
+                    @*显示display特性*@
+                    @Html.LabelFor(x => x.PassWord)
+                    <br />
+                    @Html.PasswordFor(x => x.PassWord, new { placeholder = "密码", autocomplete = "off" })
+                    @Html.ValidationMessageFor(x => x.PassWord)
+                    <p></p>
+                </div>
+                <div>
+                    @*显示display特性*@
+                    @Html.LabelFor(x => x.ConfirmPassWord)
+                    <br />
+                    @Html.PasswordFor(x => x.ConfirmPassWord, new { })
+                    @Html.ValidationMessageFor(x => x.ConfirmPassWord)
+                    <p></p>
+                </div>
+                <p>
+                    <input type="submit" value="注册"  class="btn btn-success"/>
+                </p>
+            </fieldset>
+        </div>
+       }
+</div>

@@ -1,0 +1,39 @@
+﻿
+@model MusicStore.ViewModels.MyViewModel
+@{
+    ViewBag.Title = "用户设置";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+}
+<div class="box">
+    <h2>收货地址管理</h2>
+    <hr/>
+    <p>新增一个地址点 <a href="#">这里</a></p>
+    @using (Html.BeginForm("Address", "My", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <fieldset>
+            <div>
+                @*显示display特性*@
+                @Html.LabelFor(x => x.AddressPerson)
+                <br/>
+                @Html.TextBoxFor(x => x.AddressPerson, new {autocomplete = "off" })
+                @Html.ValidationMessageFor(x => x.AddressPerson)
+            </div>
+            <div>
+                @*显示display特性*@
+                @Html.LabelFor(x => x.Address)
+                <br/>
+                @Html.TextBoxFor(x => x.Address, new {autocomplete = "off"})
+                @Html.ValidationMessageFor(x => x.Address)
+            </div>
+            <div>
+                @*显示display特性*@
+                @Html.LabelFor(x => x.MobilNumber)
+                <br/>
+                @Html.TextBoxFor(x => x.MobilNumber, new { value = "yd", autocomplete = "off"})
+                @Html.ValidationMessageFor(x => x.MobilNumber)
+            </div>
+        </fieldset>
+        <input type="submit" class="btn btn-default" value="提交" style="margin-top: 20px;"/>
+    }
+</div>
